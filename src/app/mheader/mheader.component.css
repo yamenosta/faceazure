@@ -1,0 +1,35 @@
+.myContainer
+{
+    background-color: black;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+        padding-top: 5%;
+
+}
+.carte
+{
+    background-color: rgba(211,211,211, 0.7);
+   
+    width: 50%;
+    height: 100%;
+    margin-top: 10%;
+}
+.logos
+{
+    background-color:#060317;
+    width: 50%;
+    height: 100%;
+}
+span{
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-right: 8%;
+    margin-right: 8%;
+}
+.cardinfo
+{
+    color:#060317;
+    margin-left: 2%;
+    margin-bottom:0%;
+    color: whitesmoke;
+}

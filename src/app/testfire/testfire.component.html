@@ -1,0 +1,18 @@
+<form  #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Email address</label>
+      nom: <input type="text" class="form-control" id="exampleFormControlInput1" name="nom" ngModel>
+      prenom:<input type="text" class="form-control" id="exampleFormControlInput2" name="prenom"ngModel>
+     age: <input type="text" class="form-control" id="exampleFormControlInput3" name="age"ngModel>
+    </div>
+    <ul>
+<li *ngFor="let i of item | async">
+{{ i.nom}}
+<button (click)="delete(i.key)"> Supprimer</button>
+<button (click)="edit(i.key)"> edit </button>
+</li>
+</ul>
+    
+    <button> Ajout </button>
+  
+  </form>

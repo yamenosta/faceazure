@@ -1,0 +1,264 @@
+<div class="container-fluid cont">
+
+  <h1> Face Recognition </h1>
+
+  <div id="particles-js">
+  <div class="row">
+    <label for="exampleInputEmail1" style="color:white; margin:1%;">IMAGE URL:</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter url image"
+      style="margin-left: 1%;margin-right: 1%;" [(ngModel)]="imageUrl">
+
+    <!-- Option Div-->
+
+
+
+    <!-- Option Div-->
+
+
+
+  </div>
+  <div class="row">
+
+    <input type="button" class="btn btn-primary" (click)="getPersonAge(imageUrl); ngAfterViewInit(); afterLoading()"
+      style="margin-left: 2%">
+  </div>
+  <div class="row ">
+    <!--Diplay canvas-->
+    <div class="col-6 div align-item-center justify-content-center">
+      <img #img src="{{imageUrl}}" (load)="afterLoading()" style='display:none;' />
+      <canvas #visualization width={{canvasWidth}} height={{canvasHeight}}></canvas>
+    </div>
+    <!-- Fin display canvas-->
+    <!-- Display Global Image Info-->
+    <div class="col-5 div">
+      <h3>General Data Info:</h3>
+      <h4>Number of Person in this image: {{personNumber}} </h4>
+      <h4><i class="fas fa-mars" style="font-size: 2rem; color:aliceblue;"></i> Male: {{personMale}}</h4>
+      <h4><i class="fas fa-venus" style="font-size: 2rem; color:aliceblue;"></i> Female: {{personFemale}}</h4>
+      <h4><i class="fas fa-child" style="font-size: 2rem; color:aliceblue;"> </i> Children <span> (Under 16 years)</span>:
+        {{personChildren}}</h4>
+      <h4>Global Emotion:</h4>
+      <div class="row">
+
+        <div class="col-4 justify-content-center align-item-center text-left" style="margin-left:7%;">
+          <h6> <i class="fas fa-smile-beam" style="font-size: 2rem; color:aliceblue;"></i> Happiness:</h6>
+        </div>
+        <div class="col-5" style="padding-top:2%;">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{width: percentHapiness+'%'}" aria-valuenow="25"
+              aria-valuemin="0" aria-valuemax="100">{{percentHapiness}}%</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-4 justify-content-center align-item-center text-left" style="margin-left:7%;">
+          <h6> <i class="fas fa-surprise" style="font-size: 2rem; color:aliceblue;"></i> Surprise:</h6>
+        </div>
+        <div class="col-5" style="padding-top:2%;">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{width: percentSurprise+'%'}" aria-valuenow="50"
+              aria-valuemin="0" aria-valuemax="100">{{percentSurprise}}%</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-4 justify-content-center align-item-center text-left" style="margin-left:7%;">
+          <h6> <i class="fas fa-meh" style="font-size: 2rem; color:aliceblue;"></i> Neutral</h6>
+        </div>
+        <div class="col-5" style="padding-top:2%;">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{width: percentNeutral+'%'}" aria-valuenow="50"
+              aria-valuemin="0" aria-valuemax="100">{{percentNeutral}}%</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-4 justify-content-center align-item-center text-left" style="margin-left:7%;">
+          <h6><i class="fas fa-sad-tear" style="font-size: 2rem; color:aliceblue;"></i> Sadness:</h6>
+        </div>
+        <div class="col-5" style="padding-top:2%;">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{'width': percentSadeness +'%'}" aria-valuenow="25"
+              aria-valuemin="0" aria-valuemax="100">{{percentSadeness}}%</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-4 justify-content-center align-item-center text-left" style="margin-left:7%;">
+          <h6> <i class="fas fa-angry" style="font-size: 2rem; color:aliceblue;"></i> Anger:</h6>
+        </div>
+        <div class="col-5" style="padding-top:2%;">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{width: percentAnger+'%'}" aria-valuenow="25"
+              aria-valuemin="0" aria-valuemax="100">{{percentAnger}}%</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-4 justify-content-center align-item-center text-left" style="margin-left:7%;">
+          <h6> <i class="fas fa-sad-cry" style="font-size: 2rem; color:aliceblue;"></i> Fear:</h6>
+        </div>
+        <div class="col-5" style="padding-top:2%;">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{width: percentFear+'%'}" aria-valuenow="25"
+              aria-valuemin="0" aria-valuemax="100">{{percentFear}}%</div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+    <!--fin Global info-->
+  </div>
+
+  <!-- 
+  <div class="row">
+    <div class="col-6 ">
+      <label style="color:whitesmoke">Image Preview</label>
+      <div class="div wrapper">
+        <img id="myImg" class="rounded mx-auto d-block " src="{{imageUrl}}" style="margin:5%; width:80%; height:80%; ">
+
+      </div>
+    </div>
+    <div class="col-6">
+      <form>
+
+
+
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1" style="color:whitesmoke">Recognition DATA</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="20"> {{ personAge | json }} </textarea>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+-->
+  <div>
+
+  </div>
+  <div class="row align-item-center justify-content-center">
+    <div *ngFor="let d of personAge let i=index" style="margin:3%;">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <div class="row  align-item-center justify-content-center">
+
+            <h5 class="card-title">Person {{i+1}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Age: <span style="font-size: 1rem"> {{ d.faceAttributes.age}}</span></h6>
+            <h6 class="card-subtitle mb-2 text-muted">Gender: {{d.faceAttributes.gender}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Gender: {{d.faceAttributes.gender}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Propriety: </h6>
+            <h6 class="card-subtitle mb-2 text-muted">Hair Color: </h6>
+
+            <ul>
+              <li> {{d.faceAttributes.hair.hairColor[0].color}}
+                ({{d.faceAttributes.hair.hairColor[0].confidence*100}}%)</li>
+              <li> {{d.faceAttributes.hair.hairColor[1].color}}
+                ({{d.faceAttributes.hair.hairColor[1].confidence*100}}%)</li>
+              <li> {{d.faceAttributes.hair.hairColor[2].color}}
+                ({{d.faceAttributes.hair.hairColor[2].confidence*100}}%)</li>
+            </ul>
+            <h6 class="card-subtitle mb-2 text-muted">Glasses: {{d.faceAttributes.glasses}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted"> Emotions:</h6>
+            <div class="row">
+              <div class="col-4 text-right">
+                <h6> Happy:</h6>
+              </div>
+              <div class="col-6">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{width: (d.faceAttributes.emotion.happiness*100) +'%'}"
+                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{d.faceAttributes.emotion.happiness*100}}%</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-4 text-right">
+                <h6> Surprise:</h6>
+              </div>
+              <div class="col-6">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{width: (d.faceAttributes.emotion.surprise*100)+'%'}"
+                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{d.faceAttributes.emotion.surprise*100}}%</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-4 text-right">
+                <h6> Neutral:</h6>
+              </div>
+              <div class="col-6">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{width: (d.faceAttributes.emotion.neutral*100)+'%'}"
+                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{d.faceAttributes.emotion.neutral*100}}%</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-4 text-right">
+                <h6> Sadndess:</h6>
+              </div>
+              <div class="col-6">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{width: (d.faceAttributes.emotion.sadness*100)+'%'}"
+                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{d.faceAttributes.emotion.sadness*100}}%</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-4 text-right">
+                <h6> Anger:</h6>
+              </div>
+              <div class="col-6">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{width: (d.faceAttributes.emotion.anger*100)+'%'}"
+                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{d.faceAttributes.emotion.anger*100}}%</div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-4 text-right">
+                <h6> Fear:</h6>
+              </div>
+              <div class="col-6">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{width: (d.faceAttributes.emotion.fear*100)+'%'}"
+                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{d.faceAttributes.emotion.fear*100}}%</div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
